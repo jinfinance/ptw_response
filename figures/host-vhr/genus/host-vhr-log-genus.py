@@ -60,13 +60,13 @@ plt.legend(bbox_to_anchor=(0.06, 1.05, 1., .102),labelspacing=0.5, handlelength=
            frameon=True, ncol=8, columnspacing=0.5, prop={'size': 4.2})
 
 #add a -1 slope base line, and annotation
-plt.plot([-2,0], [-5,-7], 'k--')
-plt.annotate('-1 slope', xy=(-1.25, -5.8), xytext=(-1.8, -6.7),
-            arrowprops=dict(facecolor='black', shrink=0.02, width=0.5,headwidth=7.5),
+plt.plot([-2,1], [-5,-8], 'k--')
+plt.annotate('-1 slope', xy=(-1.25, -5.8), xytext=(-1.2, -6.2),rotation=-26.5,
             )
 
 ax1.grid(False)
 plt.xlim(-2,2)
+plt.ylim(-7.5,0)
 plt.xlabel("log10(host abundance)")
 plt.ylabel("log10(VHR)")
 plt.show() 
