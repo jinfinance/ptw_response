@@ -7,7 +7,7 @@ This repository contains codes for
 - Creating the figures used for our analysis (folders: figures/host-virus and rendomization_test).
 
 Each folder includes two codes: one for the genus datasets and one for the phylum datasets.
-All codes are in Python.
+All codes are in Python version 2.7 .
 
 
 References
