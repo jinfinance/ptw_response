@@ -14,17 +14,16 @@ samples. The results are displayed in a violin diagram form.
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import csv
+#import csv
 import matplotlib.pyplot as plt
 from scipy import stats
-from random import randint
-from mpmath import mp
-import matplotlib
+#from random import randint
+#import matplotlib
 import matplotlib.gridspec as gridspec
 from collections import OrderedDict
 import copy
-import math
-from numpy import median
+#import math
+#from numpy import median
 
 df = pd.read_csv('phFile.csv', header=0,names=["Virome_Sample","Metagenome_Sample","Phylum","Microbe","Phage_Abundance","Microbial_Abundance","Phage_Prevalence","Microbial_Prevalence","Phage_Host_Co_Detections"])
 
@@ -41,11 +40,10 @@ for i in microbe_list2:
        break
 
 
-f = open('phylumSlope.txt','w')
-f2 = open('phylumSpearsmanRank.txt','w')
+f = open('phylumSlope.csv','w')
+f2 = open('phylumSpearsmanRank.csv','w')
 gs = gridspec.GridSpec(len(microbe_list),1)
 fig = plt.figure()
-fig.set_size_inches(20, 7, forward=True)
 num=-1 #To change the position of each violin plot on the y-axis
 
 for i in microbe_list:
@@ -109,23 +107,23 @@ for i in microbe_list:
   ax.spines['top'].set_visible(False)
   ax.spines['right'].set_visible(False)
   if(num!=len(microbe_list)-1):
-       plt.tick_params(axis='x',labelbottom='off', bottom='off')
+       plt.tick_params(axis='x',labelbottom='off', bottom='off', top='off')
        ax.spines['bottom'].set_visible(False)
   if(num==len(microbe_list)-1):
        ax.set_xlabel('Slope', size =7)
+       plt.tick_params(axis='x', top='off')
  
     
   print 'sample size for this host = ', sample_size
   print '----------------------------------------------------------'
 
-  #write to txt files
-  line = i + ' & ' + str(sample_size) + ' & ' + str("%.4f" % slopeO) + ' & ' + str("%.4f" % np.median(stat_slope)) + ' & ' + str("%.4f" % np.percentile(stat_slope, [2.5])) + ' & ' + str("%.4f" % np.percentile(stat_slope, [97.5])) + ' & ' + str("%.4f" % np.percentile(stat_slope, [0.5])) + ' & ' + str("%.4f" % np.percentile(stat_slope, [99.5])) + '\\' + '\\' +  '\n'
+  #write to csv files
+  line = i + ',' + str(sample_size) + ',' + str("%.4f" % slopeO) + ',' + str("%.4f" % np.median(stat_slope)) + ',' + str("%.4f" % np.percentile(stat_slope, [2.5])) + ',' + str("%.4f" % np.percentile(stat_slope, [97.5])) + ',' + str("%.4f" % np.percentile(stat_slope, [0.5])) + ',' + str("%.4f" % np.percentile(stat_slope, [99.5])) + '\n'
   f.write(line)
-  line = i + ' & ' + str(sample_size) + ' & ' + str("%.4f" % rhoO) + ' & ' + str("%.4f" % np.median(stat_rho)) + ' & ' + str("%.4f" % np.percentile(stat_rho, [2.5])) + ' & ' + str("%.4f" % np.percentile(stat_rho, [97.5])) + ' & ' + str("%.4f" % np.percentile(stat_rho, [0.5])) + ' & ' + str("%.4f" % np.percentile(stat_rho, [99.5])) + '\\' + '\\' + '\n'
+  line = i + ',' + str(sample_size) + ',' + str("%.4f" % rhoO) + ',' + str("%.4f" % np.median(stat_rho)) + ',' + str("%.4f" % np.percentile(stat_rho, [2.5])) + ',' + str("%.4f" % np.percentile(stat_rho, [97.5])) + ',' + str("%.4f" % np.percentile(stat_rho, [0.5])) + ',' + str("%.4f" % np.percentile(stat_rho, [99.5])) + '\n'
   f2.write(line)
   
 f.close()
 f2.close()
-plt.show()
-#fig.savefig('phylum-violin-plot-n=1000.pdf')
+fig.savefig('Phylum-plot.pdf')
 print 'Done..'
