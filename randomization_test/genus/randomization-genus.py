@@ -4,8 +4,7 @@
 This code performs a permutation test to evaluate the significance of the measured correlation
 between virus and host
 abundances in the genus datasets. For each host dataset, we generated 10^4
-randomized samples of size n_i (the number of data points for
-virus-host pair i).
+randomized samples of size n_i (the number of data points for virus-host pair i).
 In each sample, the virus
 abundances are permuted without replacement while holding the host
 abundances constant. Then the distributions of measured correlations are compared to the original
@@ -16,52 +15,27 @@ samples. The results are displayed in a violin diagram form.
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import csv
-import math
+#import csv
+#import math
 import matplotlib.pyplot as plt
 from scipy import stats
-from random import randint
-from mpmath import mp
-import matplotlib
+#from random import randint
+#import matplotlib
 import matplotlib.gridspec as gridspec
 from collections import OrderedDict
 import copy
 
 
-df = pd.read_csv('gFile.csv', header=0,names=["Virome_Sample","Metagenome_Sample","Phylum","Microbe","Phage_Abundance","Microbial_Abundance","Phage_Prevalence","Microbial_Prevalence","Phage_Host_Co_Detections"])
-
-microbes = df.iloc[:,3]
-microbe_list = list(OrderedDict.fromkeys(microbes))
-allMicrobs = len(microbe_list)
-microbe_list2 = copy.copy(microbe_list)
-
-#filter the microbes
-for i in microbe_list2:
-   for index, row in df.iterrows():
-     if (row.iloc[3] == i) and (row.iloc[7] < 5):
-       microbe_list.remove(i)
-       break
 
 
-f = open('genusSlope-1.txt','w')
-f2 = open('genusSpearsmanRank-1.txt','w')
-gs = gridspec.GridSpec(16,1)
-fig = plt.figure()
-fig.set_size_inches(7, 20, forward=True)
-num=-1 #To change the position of each violin plot on the y-axis
-counter = 0
 
-for i in microbe_list:
 
-  print 'Processing host: ', i
-  counter+=1
-  
-  if(counter < 17):                  #to separate the violin diagrams over different plots.
-    host=list()                      #use the condition [if(counter < 17):] for the first 16.
-    virus=list()                     #use the condition [if(counter > 16 and counter < 33):] for the next 16.
-    stat_slope=list()                #use the condition [if(counter > 32):] for the last 16.
+
+def fun(num):
+    host=list()                      
+    virus=list()                     
+    stat_slope=list()                
     stat_rho=list()
-    num+=1
  
     sample_size=0
     for index, row in df.iterrows():
@@ -95,7 +69,8 @@ for i in microbe_list:
 
 
     #plot
-    st=i+ '\n' + ' (' + str(sample_size) + ')'  
+    st=i+ '\n' + ' (' + str(sample_size) + ')'
+    ax = fig.add_subplot()
     if(num==0):
         ax = fig.add_subplot(gs[num])
     else:
@@ -119,25 +94,74 @@ for i in microbe_list:
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     if(num!=15):
-       plt.tick_params(axis='x',labelbottom='off', bottom='off')
+       plt.tick_params(axis='x',labelbottom='off', bottom='off', top='off')
+       ax.spines['top'].set_visible(False)
        ax.spines['bottom'].set_visible(False)
     if(num==15):
        ax.set_xlabel('Slope', size =7)
+       plt.tick_params(axis='x', top='off')
    
     
     print 'sample size for this host = ', sample_size
     print '----------------------------------------------------------'
 
-    #write to txt files
-    line = i + ' & ' + str(sample_size) + ' & ' + str("%.4f" % slopeO) + ' & ' + str("%.4f" % np.median(stat_slope)) + ' & ' + str("%.4f" % np.percentile(stat_slope, [2.5])) + ' & ' + str("%.4f" % np.percentile(stat_slope, [97.5])) + ' & ' + str("%.4f" % np.percentile(stat_slope, [0.5])) + ' & ' + str("%.4f" % np.percentile(stat_slope, [99.5])) + '\\' + '\\' +  '\n'
+    #write to csv files
+    line = i + ' ' + str(sample_size) + ',' + str("%.4f" % slopeO) + ',' + str("%.4f" % np.median(stat_slope)) + ',' + str("%.4f" % np.percentile(stat_slope, [2.5])) + ',' + str("%.4f" % np.percentile(stat_slope, [97.5])) + ',' + str("%.4f" % np.percentile(stat_slope, [0.5])) + ',' + str("%.4f" % np.percentile(stat_slope, [99.5])) + '\n'
     f.write(line)
-    line = i + ' & ' + str(sample_size) + ' & ' + str("%.4f" % rhoO) + ' & ' + str("%.4f" % np.median(stat_rho)) + ' & ' + str("%.4f" % np.percentile(stat_rho, [2.5])) + ' & ' + str("%.4f" % np.percentile(stat_rho, [97.5])) + ' & ' + str("%.4f" % np.percentile(stat_rho, [0.5])) + ' & ' + str("%.4f" % np.percentile(stat_rho, [99.5])) + '\\' + '\\' + '\n'
+    line = i + ' ' + str(sample_size) + ',' + str("%.4f" % rhoO) + ',' + str("%.4f" % np.median(stat_rho)) + ',' + str("%.4f" % np.percentile(stat_rho, [2.5])) + ',' + str("%.4f" % np.percentile(stat_rho, [97.5])) + ',' + str("%.4f" % np.percentile(stat_rho, [0.5])) + ',' + str("%.4f" % np.percentile(stat_rho, [99.5])) + '\n'
     f2.write(line)
 
 
+
+
+
+df = pd.read_csv('gFile.csv', header=0,names=["Virome_Sample","Metagenome_Sample","Phylum","Microbe","Phage_Abundance","Microbial_Abundance","Phage_Prevalence","Microbial_Prevalence","Phage_Host_Co_Detections"])
+
+microbes = df.iloc[:,3]
+microbe_list = list(OrderedDict.fromkeys(microbes))
+allMicrobs = len(microbe_list)
+microbe_list2 = copy.copy(microbe_list)
+
+#filter the microbes
+for i in microbe_list2:
+   for index, row in df.iterrows():
+     if (row.iloc[3] == i) and (row.iloc[7] < 5):
+       microbe_list.remove(i)
+       break
+
+
+f = open('genusSlope.csv','w')
+f2 = open('genusSpearsmanRank.csv','w')
+gs = gridspec.GridSpec(16,1)
+fig = plt.figure()
+counter = 0 #To add the violin diagrams to 3 plots
+n=-1 #To change the position of each violin plot on the y-axis
+
+for i in microbe_list:
+  print 'Processing host: ', i
+  counter+=1
+  if(counter < 17):
+    n+=1 
+    fun(n)
+    if(counter == 16):
+      fig.savefig('Genus-plot-1.pdf')
+      n=-1
+      fig = plt.figure()
+  elif(counter > 16 and counter < 33):
+    n+=1 
+    fun(n)
+    if(counter == 32):
+      fig.savefig('Genus-plot-2.pdf')
+      n=-1
+      fig = plt.figure()
+  else:
+    n+=1 
+    fun(n)
+    if(counter == 48):
+      fig.savefig('Genus-plot-3.pdf')
+    
+ 
+
 f.close()
 f2.close()
-plt.show()
-plt.close()
-#fig.savefig('genus-violin-plot-n=10000.pdf')
 print 'Done..'
