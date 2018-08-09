@@ -7,11 +7,11 @@ This repository contains codes for
 - Creating the figures used for our analysis (folders: figures/host-virus and rendomization_test).
 
 Each folder includes two codes: one for the genus datasets and one for the phylum datasets.
-All codes are in Python version 2.7 .
+All codes are in Python version 2.7.
 
 
 References
 
 [1] Coutinho, F. H., Silveira, C. B., Gregoracci, G. B., Thompson, C. C., Edwards, R. A., Brussaard, C. P. D., Dutilh, B. E. & Thompson, F. L. Marine viruses discovered via metagenomics shed light on viral strategies throughout the oceans. Nature Communications 8, 15955 EP (2017).
 
-[2] Alrasheed H., Jin R., & Weitz J. S. Absence of evidence for `Piggyback-the-Winner' viral strategies as inferred via marine metagenomics. submitted.
+[2] Alrasheed H., Jin R., & Weitz J. S. A cautionary tale of spurious self-correlation: on inferring mechanistic viral strategies from abundance relationships in marine metagenomes (submitted).
