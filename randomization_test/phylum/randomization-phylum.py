@@ -89,9 +89,9 @@ for i in microbe_list:
   else:
         ax = fig.add_subplot(gs[num],sharex=ax)
  
-  sns.boxplot(stat_slope, showfliers=False, showbox=False, whis=[0.5,99.5], color='gray', linewidth=1.75)
+  sns.boxplot(stat_slope, showfliers=False, showbox=False, whis=[2.5,97.5], color='gray', linewidth=1.75)
 
-  if( (slopeO < np.percentile(stat_slope, [0.5])) or (slopeO > np.percentile(stat_slope, [99.5]))):
+  if( (slopeO < np.percentile(stat_slope, [2.5])) or (slopeO > np.percentile(stat_slope, [97.5]))):
       ax.set_ylabel(st, size =6, rotation=0, color='gray', horizontalalignment='right')
       sns.violinplot(stat_slope, color='mistyrose', linewidth=0.85, inner="box")
 
