@@ -51,7 +51,7 @@ for i in microbe_list:
   
   c=colors[num]
   #curve fitting with polyfit
-  ax1.plot(np.unique(loghost), np.poly1d(np.polyfit(loghost, logvhr, 1))(np.unique(loghost)), color=c) #best fit line
+  ax1.plot(loghost, np.poly1d(np.polyfit(loghost, logvhr, 1))(loghost), color=c) #best fit line
   ax1.scatter(loghost, logvhr, s=5, label=i, color=c)  
   num=num+1 
   
