@@ -31,7 +31,7 @@ import copy
 
 
 
-def fun(num):
+def randomization_test(num):
     host=list()                      
     virus=list()                     
     stat_slope=list()                
@@ -55,11 +55,6 @@ def fun(num):
     
       bs_loghost  = loghost
       bs_logvirus = np.random.choice(logvirus,len(logvirus),replace=False)
-      
-      # to handle nan values in spearman rank for hosts with few data points
-      if(sample_size < 8):
-         while(all(x == bs_logvirus[0] for x in bs_logvirus)):
-            bs_logvirus = np.random.choice(logvirus,len(logvirus),replace=True)
 
       slope, intercept, r_value, p_value, std_err = stats.linregress(bs_loghost,bs_logvirus) 
       stat_slope.append(slope)
@@ -131,7 +126,7 @@ for i in microbe_list2:
 
 
 f = open('genusSlope.csv','w')
-f2 = open('genusSpearsmanRank.csv','w')
+f2 = open('genusSpearmanRank.csv','w')
 gs = gridspec.GridSpec(16,1)
 fig = plt.figure()
 counter = 0 #To add the violin diagrams to 3 plots
@@ -142,21 +137,21 @@ for i in microbe_list:
   counter+=1
   if(counter < 17):
     n+=1 
-    fun(n)
+    randomization_test(n)
     if(counter == 16):
       fig.savefig('Genus-plot-1.pdf')
       n=-1
       fig = plt.figure()
   elif(counter > 16 and counter < 33):
     n+=1 
-    fun(n)
+    randomization_test(n)
     if(counter == 32):
       fig.savefig('Genus-plot-2.pdf')
       n=-1
       fig = plt.figure()
   else:
     n+=1 
-    fun(n)
+    randomization_test(n)
     if(counter == 48):
       fig.savefig('Genus-plot-3.pdf')
     
