@@ -41,7 +41,7 @@ for i in microbe_list2:
 
 
 f = open('phylumSlope.csv','w')
-f2 = open('phylumSpearsmanRank.csv','w')
+f2 = open('phylumSpearmanRank.csv','w')
 gs = gridspec.GridSpec(len(microbe_list),1)
 fig = plt.figure()
 num=-1 #To change the position of each violin plot on the y-axis
