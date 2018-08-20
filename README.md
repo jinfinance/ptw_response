@@ -9,6 +9,8 @@ This repository contains codes for
 Each folder includes two codes: one for the genus datasets and one for the phylum datasets.
 All codes are in Python version 2.7.
 
+This code is archived on Zenodo:[![DOI](https://zenodo.org/badge/143794036.svg)](https://zenodo.org/badge/latestdoi/143794036)
+
 
 References
 
