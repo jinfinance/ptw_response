@@ -14,4 +14,5 @@ References
 
 [1] Coutinho, F. H., Silveira, C. B., Gregoracci, G. B., Thompson, C. C., Edwards, R. A., Brussaard, C. P. D., Dutilh, B. E. & Thompson, F. L. Marine viruses discovered via metagenomics shed light on viral strategies throughout the oceans. Nature Communications 8, 15955 EP (2017).
 
-[2] Alrasheed H., Jin R., & Weitz J. S. A cautionary tale of spurious self-correlation: on inferring mechanistic viral strategies from abundance relationships in marine metagenomes (submitted).
+[2] Al-Rasheed H., Jin R., & Weitz J. S. Caution in inferring viral strategies from abundance-based correlations in marine
+metagenomes (submitted).
